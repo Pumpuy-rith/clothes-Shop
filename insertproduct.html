@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Insert Product Form</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
+    <!-- Modal -->
+    <div
+      id="popup-modal"
+      tabindex="-1"
+      class="hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-center w-full h-full bg-opacity-50 backdrop-blur-sm"
+    >
+      <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 relative">
+        <button
+          type="button"
+          class="absolute top-2 right-2 text-gray-500"
+          data-modal-hide="popup-modal"
+          onclick="closeModal()"
+        >
+          ✕
+        </button>
+        <h3 class="text-lg font-semibold mb-4">
+          Are you sure you want to delete this product?
+        </h3>
+        <div class="flex justify-end gap-3">
+          <button
+            id="confirmDeleteButton"
+            class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+          >
+            Yes
+          </button>
+          <button
+            data-modal-hide="popup-modal"
+            onclick="closeModal()"
+            class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid w-full px-4">
+      <div class="bg-white p-10 rounded-2xl shadow-md w-full max-w-md mx-auto">
+        <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">
+          Insert Product
+        </h2>
+        <form action="/submit-product" method="POST" class="space-y-4">
+          <!-- Product Name -->
+          <div>
+            <label
+              for="productName"
+              class="block text-gray-700 font-medium mb-1"
+            >
+              Product Name
+            </label>
+            <input
+              id="productName"
+              type="text"
+              name="productName"
+              required
+              class="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+
+          <!-- Color -->
+          <div>
+            <label
+              for="productColor"
+              class="block text-gray-700 font-medium mb-1"
+            >
+              Color
+            </label>
+            <input
+              id="productColor"
+              type="text"
+              name="productcolore"
+              required
+              class="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+
+          <!-- Size -->
+          <div>
+            <label
+              for="productSize"
+              class="block text-gray-700 font-medium mb-1"
+            >
+              Size
+            </label>
+            <input
+              id="productSize"
+              type="text"
+              name="productsize"
+              required
+              class="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+
+          <!-- Price -->
+          <div>
+            <label
+              for="productPrice"
+              class="block text-gray-700 font-medium mb-1"
+            >
+              Price ($)
+            </label>
+            <input
+              id="productPrice"
+              type="number"
+              name="price"
+              step="0.01"
+              min="0"
+              required
+              class="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+
+          <!-- Image URL -->
+          <div>
+            <label
+              for="productImageUrl"
+              class="block text-gray-700 font-medium mb-1"
+            >
+              Image URL
+            </label>
+            <input
+              id="productImageUrl"
+              type="url"
+              name="imageUrl"
+              required
+              placeholder="https://example.com/image.jpg"
+              class="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <!-- Submit Button -->
+          <div class="flex justify-between mt-6">
+            <button
+              id="btn_cancel"
+              type="submit"
+              class="inline-block rounded-sm bg-red-600 px-8 py-3 text-sm font-medium text-white transition hover:scale-110 hover:rotate-2 focus:ring-3 focus:outline-hidden"
+            >
+              Cancel
+            </button>
+
+            <button
+              id="btn_add"
+              type="submit"
+              class="inline-block rounded-sm border border-current px-8 py-3 text-sm font-medium text-indigo-600 transition hover:scale-110 hover:-rotate-2 focus:ring-3 focus:outline-hidden"
+            >
+              Add Product
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!--other form-->
+
+    <div
+      id="productTableContainer"
+      class="container-fluid w-full px-4 lg:col-span-2"
+    >
+      <div class="h-32 rounded bg-white shadow-md lg:col-span-2">
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+          <table
+            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+          >
+            <br />
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">
+              My Clothes
+            </h2>
+            <thead
+              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+            >
+              <tr>
+                <th scope="col" class="px-6 py-3">Product name</th>
+                <th scope="col" class="px-6 py-3">Color</th>
+                <th scope="col" class="px-6 py-3">Size</th>
+                <th scope="col" class="px-6 py-3">Image</th>
+                <th scope="col" class="px-6 py-3">Price</th>
+                <th scope="col" class="px-6 py-3">Action</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    // DOM Elements
+    let input_name = document.getElementById("productName");
+    let input_color = document.getElementById("productColor");
+    let input_size = document.getElementById("productSize");
+    let input_price = document.getElementById("productPrice");
+    let input_url = document.getElementById("productImageUrl");
+    let btn_add = document.getElementById("btn_add");
+    let table_body = document.querySelector("#productTableContainer tbody");
+
+    let product_list = getProductList();
+    let global_index = null;
+    let globalIndexToDelete = null; // Variable to store the index of the product to delete
+    renderProducts();
+
+    // ...existing code...
+    btn_add.addEventListener("click", function (e) {
+      e.preventDefault();
+      let name = input_name.value;
+      let color = input_color.value;
+      let size = input_size.value;
+      let price = input_price.value;
+      let url = input_url.value;
+
+      if (name === "" || color === "" || size === "" || price === "") {
+        alert("Please fill all the fields");
+        return;
+      }
+
+      if (global_index === null) {
+        product_list.push({ name, color, size, price, url });
+      } else {
+        product_list[global_index] = { name, color, size, price, url };
+        global_index = null;
+      }
+
+      localStorage.setItem("products", JSON.stringify(product_list));
+      clearForm();
+      renderProducts();
+
+      // Redirect to product page after adding
+      window.location.href = "product.html"; // Change to your actual product page
+    });
+    // ...existing code...
+
+    function clearForm() {
+      input_name.value = "";
+      input_color.value = "";
+      input_size.value = "";
+      input_price.value = "";
+      input_url.value = "";
+      btn_add.innerText = "Add";
+    }
+
+    function getProductList() {
+      let data = localStorage.getItem("products") ?? "[]";
+      return JSON.parse(data);
+    }
+
+    function renderProducts() {
+      table_body.innerHTML = "";
+      product_list.forEach((product, index) => {
+        const row = document.createElement("tr");
+        row.className =
+          "bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200";
+
+        row.innerHTML = `
+      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        ${product.name}
+      </th>
+      <td class="px-6 py-4">${product.color}</td>
+      <td class="px-6 py-4">${product.size}</td>
+      <td class="px-6 py-4"><img src="${product.url}" class="w-16 h-16 object-cover"></td>
+      <td class="px-6 py-4">$${product.price}</td>
+      <td class="px-6 py-4">
+        <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" 
+    class="inline-block rounded-md border border-current px-4 py-2 text-sm font-medium text-red-600 transition hover:scale-110 hover:shadow-xl focus:ring-3 focus:outline-hidden"
+    onclick="confirmDelete(${index})">
+    Delete
+</button>
+
+        <button
+          onclick="editProduct(${index})"
+          class="inline-block rounded-md border border-current px-4 py-2 text-sm font-medium text-red-600 transition hover:scale-110 hover:shadow-xl focus:ring-3 focus:outline-hidden"
+        >
+          Edit
+        </button>
+      </td>
+    `;
+        table_body.appendChild(row);
+      });
+    }
+
+    function deleteProduct(index) {
+      if (confirm("Are you sure you want to delete this product?")) {
+        product_list.splice(index, 1);
+        localStorage.setItem("products", JSON.stringify(product_list));
+        renderProducts();
+      }
+    }
+
+    function editProduct(index) {
+      let product = product_list[index];
+      input_name.value = product.name;
+      input_color.value = product.color;
+      input_size.value = product.size;
+      input_price.value = product.price;
+      input_url.value = product.url;
+      global_index = index;
+      btn_add.innerText = "Update";
+    }
+
+    // Show the modal
+    function confirmDelete(index) {
+      globalIndexToDelete = index; // Store the index of the product to delete
+      const modal = document.getElementById("popup-modal");
+      modal.classList.remove("hidden"); // Show the modal
+    }
+
+    // Close the modal
+    function closeModal() {
+      const modal = document.getElementById("popup-modal");
+      modal.classList.add("hidden"); // Hide the modal
+    }
+
+    // Handle deletion when the user confirms
+    document
+      .getElementById("confirmDeleteButton")
+      .addEventListener("click", function () {
+        if (globalIndexToDelete !== null) {
+          deleteProduct(globalIndexToDelete); // Perform the delete action
+          closeModal(); // Close the modal
+        }
+      });
+
+    // Function to delete product (Update your delete function)
+    function deleteProduct(index) {
+      let products = JSON.parse(localStorage.getItem("products")) || [];
+
+      // Remove the product at the specified index
+      products.splice(index, 1);
+
+      // Save the updated array back to localStorage
+      localStorage.setItem("products", JSON.stringify(products));
+
+      // Refresh the product table
+      renderProducts(); // Assuming you have a renderProducts function to refresh the list
+      alert("Product deleted successfully!");
+    }
+  </script>
+</html>
