@@ -301,12 +301,12 @@
 
     function confirmDelete(index) {
       globalIndexToDelete = index;
-      const modal = document.getElementById("popup-modal");
+      let modal = document.getElementById("popup-modal");
       modal.classList.remove("hidden");
     }
 
     function closeModal() {
-      const modal = document.getElementById("popup-modal");
+      let modal = document.getElementById("popup-modal");
       modal.classList.add("hidden");
     }
 
