@@ -17,11 +17,10 @@
             id="product-container"
             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            <!-- Product cards will be rendered here -->
+        
           </div>
         </div>
 
-        <!-- Shopping Cart Section -->
         <div class="w-full lg:w-1/3">
           <div class="bg-white shadow-xl rounded-lg h-full">
             <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
@@ -58,7 +57,7 @@
                     role="list"
                     class="-my-6 divide-y divide-gray-200"
                   >
-                    <!-- Dynamic cart items will be rendered here -->
+                   
                   </ul>
                 </div>
               </div>
@@ -104,11 +103,10 @@
     </div>
 
     <script>
-      // Get products from localStorage
+
       let productList = JSON.parse(localStorage.getItem("products") || "[]");
       let cartItems = [];
 
-      // DOM Elements
       const productContainer = document.getElementById("product-container");
       const cartItemsList = document.getElementById("cart-items-list");
       const cartSubtotal = document.getElementById("cart-subtotal");
@@ -117,11 +115,11 @@
         "continue-shopping-button"
       );
 
-      // Initialize the page
+  
       renderProducts();
       renderCart();
 
-      // Render product cards
+
       function renderProducts() {
         productContainer.innerHTML = "";
 
@@ -159,9 +157,7 @@
       BackToInsertProducts.addEventListener("click", () => {
         window.location.href = "insertproduct.html";
       });
-      // ...existing code...
-
-      // Add product to cart
+  
       function addToCart(productIndex) {
         const product = productList[productIndex];
         const existingItem = cartItems.find((item) => item.id === productIndex);
@@ -190,7 +186,7 @@
         });
       }
 
-      // Render cart items
+
       function renderCart() {
         cartItemsList.innerHTML = "";
 
@@ -245,7 +241,6 @@
         cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
       }
 
-      // Remove item from cart
       function removeFromCart(index) {
         Swal.fire({
           icon: "question",
@@ -262,7 +257,7 @@
         });
       }
 
-      // Checkout button handler
+
       paymentButton.addEventListener("click", () => {
         if (cartItems.length === 0) {
           Swal.fire({
@@ -279,15 +274,13 @@
           text: "Thank you for your purchase!",
         });
 
-        // Here you would typically send the order to a server
-        // For now, we'll just clear the cart
         cartItems = [];
         renderCart();
       });
 
-      // Continue shopping button handler
+
       continueShoppingButton.addEventListener("click", () => {
-        // Scroll to top of product list
+
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
     </script>

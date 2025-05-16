@@ -192,7 +192,6 @@
     </div>
   </body>
   <script>
-    // DOM Elements
     let input_name = document.getElementById("productName");
     let input_color = document.getElementById("productColor");
     let input_size = document.getElementById("productSize");
@@ -203,10 +202,9 @@
 
     let product_list = getProductList();
     let global_index = null;
-    let globalIndexToDelete = null; // Variable to store the index of the product to delete
+    let globalIndexToDelete = null;
     renderProducts();
 
-    // ...existing code...
     btn_add.addEventListener("click", function (e) {
       e.preventDefault();
       let name = input_name.value;
@@ -231,10 +229,8 @@
       clearForm();
       renderProducts();
 
-      // Redirect to product page after adding
-      window.location.href = "product.html"; // Change to your actual product page
+      window.location.href = "product.html";
     });
-    // ...existing code...
 
     function clearForm() {
       input_name.value = "";
@@ -303,41 +299,34 @@
       btn_add.innerText = "Update";
     }
 
-    // Show the modal
     function confirmDelete(index) {
-      globalIndexToDelete = index; // Store the index of the product to delete
+      globalIndexToDelete = index;
       const modal = document.getElementById("popup-modal");
-      modal.classList.remove("hidden"); // Show the modal
+      modal.classList.remove("hidden");
     }
 
-    // Close the modal
     function closeModal() {
       const modal = document.getElementById("popup-modal");
-      modal.classList.add("hidden"); // Hide the modal
+      modal.classList.add("hidden");
     }
 
-    // Handle deletion when the user confirms
     document
       .getElementById("confirmDeleteButton")
       .addEventListener("click", function () {
         if (globalIndexToDelete !== null) {
-          deleteProduct(globalIndexToDelete); // Perform the delete action
-          closeModal(); // Close the modal
+          deleteProduct(globalIndexToDelete);
+          closeModal();
         }
       });
 
-    // Function to delete product (Update your delete function)
     function deleteProduct(index) {
       let products = JSON.parse(localStorage.getItem("products")) || [];
 
-      // Remove the product at the specified index
       products.splice(index, 1);
 
-      // Save the updated array back to localStorage
       localStorage.setItem("products", JSON.stringify(products));
 
-      // Refresh the product table
-      renderProducts(); // Assuming you have a renderProducts function to refresh the list
+      renderProducts();
       alert("Product deleted successfully!");
     }
   </script>
